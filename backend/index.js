@@ -1,10 +1,14 @@
 const express = require('express');
 const app = express();
 const fs = require('fs');
+const cors = require('cors');
+
 
 app.get('/', function (req, res) {
     res.sendFile(__dirname + "/index.html");
 })
+
+app.use(cors());
 
 
 app.get('/video', function (req, res) {
@@ -13,7 +17,7 @@ app.get('/video', function (req, res) {
     if (!range) {
         res.status(400).send("Requires Range header");
     }
-    const videoPath = __dirname + "/Movies/Black Panther (2018) Dual Audio {Hindi-English} 1080p BluRay 3GB [Vegamovies.NL].mkv";
+    const videoPath = __dirname + "/Movies/Krishna Vrinda Vihari (2023) {Hindi DD5.1 -192Kbps + Telugu} UnCut HD 1080p ESub - Vegamovies.to.mkv";
     const videoSize = fs.statSync(videoPath).size;
     // console.log("size of video is:", videoSize);
     const CHUNK_SIZE = 10 ** 6; //1 MB
@@ -53,6 +57,6 @@ app.get('/thumbnail', (req, res) => {
 
 
 
-app.listen(3001, function () {
+app.listen(3001,'192.168.1.50', function () {
     console.log("Server is running on port:", 3001);
 })
